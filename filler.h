@@ -16,12 +16,15 @@
 
 typedef struct s_fig
 {
-	char **figmap;
+	char **fig;
 	char **map;
 	int col;
 	int row;
 	int fd;
+	int fcol;
+	int frow;
 }				t_fig;
+
 
 typedef t_fig t_map;
 typedef t_map t_check;
