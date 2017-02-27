@@ -7,10 +7,12 @@
 # include <fcntl.h>
 # include <libc.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
 # include "libft/libft.h"
 
-# define P1 'O'
-# define P2 'X'
+# define P1 'o'
+# define P2 'x'
 
 typedef struct s_fig
 {
@@ -18,13 +20,15 @@ typedef struct s_fig
 	char **map;
 	int col;
 	int row;
+	int fd;
 }				t_fig;
 
 typedef t_fig t_map;
+typedef t_map t_check;
 
 typedef struct s_player
 {
-	int my_player;
-	int op_player;
-}				t_player;
+	char my_player;
+	char op_player;
+}				t_pla;
 #endif
