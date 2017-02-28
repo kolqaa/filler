@@ -51,6 +51,10 @@ void	struct_init(t_map *map, t_pla *player, t_fig *fig)
 {
 	player->my_player = 0;
 	player->op_player = 0;
+	player->myx = 0;
+	player->myy = 0;
+	player->opx = 0;
+	player->opy = 0;
 	map->col = 0;
 	map->row = 0;
 	fig->fcol = 0;
@@ -60,20 +64,8 @@ void	struct_init(t_map *map, t_pla *player, t_fig *fig)
 
 void	take_figure_size(char *line, t_fig *fig)
 {
-	while (*line)
-	{
-		if (*line >= '0' && *line <= '9')
-		{
-			if (fig->fcol == 0)
-				fig->fcol = ft_atoi(line);
-			else
-				fig->frow = ft_atoi(line);
-			while (*line >= '0' && *line <= '9')
-				line++;
-		}
-		line++;
-	}
-
+	fig->fcol = ft_atoi(&line[6]);
+	fig->frow = ft_atoi(ft_strchr(&line[6], ' ') + 1);
 }
 
 int main(void)
@@ -147,13 +139,46 @@ int main(void)
 		if (ft_strstr(line, "Piece"))
 		{
 			take_figure_size(line, fig);
+			/*ft_putstr_fd(line, test->fd);
 			ft_putstr_fd("fig->fcol == ", test->fd);
 			ft_putnbr_fd(fig->fcol, test->fd);
 			ft_putstr_fd("fig->frow == ", test->fd);
-			ft_putnbr_fd(fig->frow, test->fd);
-		}
+			ft_putnbr_fd(fig->frow, test->fd);*/
+			get_next_line(0, &line);
+			ft_putchar_fd('\n', test->fd);
+			i = 0;
+			fig->figmap = (char **) malloc(sizeof(char *) * (fig->fcol + 1));
+			if (fig->figmap == NULL)
+				return (0);
+			fig->figmap[fig->fcol] = 0;
+			while (i < fig->fcol) {
+				j = 0;
+				fig->figmap[i] = (char *) malloc(sizeof(char) * (fig->frow + 1));
+				if (fig->figmap[i] == NULL)
+					return (0);
+				while (*line) {
+					fig->figmap[i][j] = *line;
+					j++;
+					line++;
+				}
+				fig->figmap[i++][j] = '\0';
+				get_next_line(0, &line);
+			}
+			ft_putstr_fd("8 2\n", 1);
+			i = 0;
+			while (fig->figmap[i]) {
+				j = 0;
+				while (fig->figmap[i][j]) {
+					ft_putchar_fd(fig->figmap[i][j], test->fd);
+					j++;
+				}
+				ft_putchar_fd('\n', test->fd);
+				i++;
+			}
 
+		}
+		/*cord_my_fig(player, map);
+		cord_op_fig(player, map);*/
 	}
 	return (0);
 }
-

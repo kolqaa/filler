@@ -16,7 +16,7 @@
 
 typedef struct s_fig
 {
-	char **fig;
+	char **figmap;
 	char **map;
 	int col;
 	int row;
@@ -33,5 +33,9 @@ typedef struct s_player
 {
 	char my_player;
 	char op_player;
+	int myx;
+	int myy;
+	int opx;
+	int opy;
 }				t_pla;
 #endif
