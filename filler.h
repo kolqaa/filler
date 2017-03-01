@@ -11,8 +11,10 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define P1 'o'
-# define P2 'x'
+# define P1 'O'
+# define P2 'X'
+# define BEGINING_OF_THE_GAME 1989
+
 
 typedef struct s_fig
 {
@@ -23,6 +25,9 @@ typedef struct s_fig
 	int fd;
 	int fcol;
 	int frow;
+	int flag_for_fig;
+	int m;
+	int f;
 }				t_fig;
 
 
