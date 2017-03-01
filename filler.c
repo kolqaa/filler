@@ -153,7 +153,10 @@ int main(void)
 	while (get_next_line(0, &line) > 0)
 	{
 		if (ft_strstr(line, "$$$"))
+		{
 			player->my_player = get_player(line, player);
+			player->myx = BEGINING_OF_THE_GAME;
+		}
 		/*ft_putstr_fd("this is line ", test->fd);
 		ft_putstr_fd(line, test->fd);
 		ft_putchar_fd('\n', test->fd);*/
@@ -188,13 +191,17 @@ int main(void)
 			fig->figmap[fig->f] = line;
 			fig->f++;
 		}
-		if(player->myx == BEGINING_OF_THE_GAME)
+		if(fig->f == fig->fcol && fig->flag_for_fig)
 		{
-			take_first_coordin(map, player, test);
-			ft_putnbr_fd(player->myx, 1);
-			ft_putchar_fd(' ', 1);
-			ft_putnbr_fd(player->myy, 1);
-			ft_putchar_fd('\n', 1);
+			if (player->myx == BEGINING_OF_THE_GAME)
+			{
+				take_first_coordin(map, player, test);
+				ft_putnbr_fd(player->myx, 1);
+				ft_putchar_fd(' ', 1);
+				ft_putnbr_fd(player->myy, 1);
+				ft_putchar_fd('\n', 1);
+				player->myx = 0;
+			}
 		}
 
 
@@ -203,7 +210,7 @@ int main(void)
 		/*cord_my_fig(player, map);
 		cord_op_fig(player, map);*/
 	}
-	i = 0;
+	/*i = 0;
 	while (map->map[i])
 	{
 		j = 0;
@@ -226,6 +233,6 @@ int main(void)
 		}
 		ft_putchar_fd('\n', test->fd);
 		i++;
-	}
+	}*/
 	return (0);
 }
