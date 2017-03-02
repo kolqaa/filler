@@ -13,8 +13,7 @@
 
 # define P1 'O'
 # define P2 'X'
-# define BEGINING_OF_THE_GAME 1989
-
+# define BEGINING_OF_THE_GAME 2016
 
 typedef struct s_fig
 {
@@ -28,6 +27,13 @@ typedef struct s_fig
 	int flag_for_fig;
 	int m;
 	int f;
+	int first_fig_done;
+	int cenx;
+	int ceny;
+	int figx;
+	int figy;
+	int putx;
+	int puty;
 }				t_fig;
 
 
