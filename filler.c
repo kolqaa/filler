@@ -39,41 +39,45 @@ int check_put(char **figmap, char **map, int i, int j, t_pla *player, t_check *t
 	ft_putstr_fd("check_put\n", test->fd);
 	int x;
 	int y;
+	int count;
 	int newi;
 	int newj;
 
 	newi = i;
 	newj = j;
+	count = 0;
 	x = 0;
 	while (figmap[x])
 	{
 		y = 0;
+		newj = j;
 		while (figmap[x][y])
 		{
 			if (map[newi][newj] == figmap[x][y])
-			{
-				ft_putstr_fd("return (1)\n", test->fd);
-				player->myx = i;
-				player->myy = j;
-				ft_putstr_fd("cord i -->>> ", test->fd);
-				ft_putnbr_fd(i, test->fd);
-				ft_putchar_fd('\n', test->fd);
-				ft_putstr_fd("codr j -->>> ", test->fd);
-				ft_putnbr_fd(j, test->fd);
-				ft_putchar_fd('\n', test->fd);
-				ft_putstr_fd("new i -->>> ", test->fd);
-				ft_putnbr_fd(newi, test->fd);
-				ft_putchar_fd('\n', test->fd);
-				ft_putstr_fd("new j -->>> ", test->fd);
-				ft_putnbr_fd(newj, test->fd);
-				ft_putchar_fd('\n', test->fd);
-				return (1);
-			}
+				count++;
 			y++;
 			newj++;
 		}
 		x++;
 		newi++;
+	}
+	if (count == 1)
+	{
+		player->myx = i;
+		player->myy = j;
+		ft_putstr_fd("cord i -->>> ", test->fd);
+		ft_putnbr_fd(i, test->fd);
+		ft_putchar_fd('\n', test->fd);
+		ft_putstr_fd("codr j -->>> ", test->fd);
+		ft_putnbr_fd(j, test->fd);
+		ft_putchar_fd('\n', test->fd);
+		ft_putstr_fd("new i -->>> ", test->fd);
+		ft_putnbr_fd(newi, test->fd);
+		ft_putchar_fd('\n', test->fd);
+		ft_putstr_fd("new j -->>> ", test->fd);
+		ft_putnbr_fd(newj, test->fd);
+		ft_putchar_fd('\n', test->fd);
+		return (1);
 	}
 	return (0);
 }
@@ -123,6 +127,7 @@ void	put_my_fig(t_fig *fig, t_pla *player, t_map *map, t_check *test)
 	else
 	{
 		ft_putstr_fd("FIGURA TVAR\n", test->fd);
+		ft_putstr("0 0\n");
 		return ;
 	}
 }
@@ -377,12 +382,12 @@ int main(void)
 				put_my_fig(fig, player, map, test);
 				reset_all_value(map, fig);
 			}
-			/*if (fig->first_fig_done)
+			else
 			{
-				make_next_step(map, fig, player, test);
-				put_my_fig(fig, player);
+				fig_to_myplayer(fig, test, player);
+				put_my_fig(fig, player, map, test);
 				reset_all_value(map, fig);
-			}*/
+			}
 		}
 
 
