@@ -15,6 +15,13 @@
 # define P2 'X'
 # define BEGINING_OF_THE_GAME 2016
 
+typedef struct s_flist
+{
+	int x;
+	int y;
+	struct s_flist *next;
+}				t_flist;
+
 typedef struct s_fig
 {
 	char **figmap;
@@ -30,10 +37,7 @@ typedef struct s_fig
 	int first_fig_done;
 	int cenx;
 	int ceny;
-	int figx;
-	int figy;
-	int putx;
-	int puty;
+	t_flist *lst;
 }				t_fig;
 
 
@@ -49,4 +53,5 @@ typedef struct s_player
 	int opx;
 	int opy;
 }				t_pla;
+
 #endif

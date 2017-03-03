@@ -13,6 +13,82 @@
 
 #include "filler.h"
 
+int		ft_pow(int nb, int power)
+{
+	if (power < 0)
+		return (0);
+	if (power == 0)
+	{
+		nb = 1;
+		return (nb);
+	}
+	else
+	{
+		return (nb * ft_pow(nb, power - 1));
+	}
+}
+
+int	ft_sqrt(int nb)
+{
+	int i;
+	int b;
+
+	i = 1;
+	while (i <= nb / 2)
+	{
+		b = i * i;
+		if (b >= nb)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+
+void	write_coor_in_lst(t_flist **lst, int i, int j)
+{
+	t_flist *tmp;
+	t_flist *tmp2;
+
+	tmp = (t_flist *)malloc(sizeof(*tmp));
+	tmp->x = i;
+	tmp->y = j;
+	tmp->next = NULL;
+
+	if (*lst == NULL)
+		*lst = tmp;
+	else
+	{
+		tmp2 = *lst;
+		while (tmp2->next != NULL)
+			tmp2 = tmp2->next;
+		tmp2->next = tmp;
+	}
+}
+void select_shortly(t_flist **lst, t_map *map, t_pla *player)
+{
+	int tmpx;
+	int tmpy;
+	int tmpdst;
+	t_flist *tmp;
+
+	tmpdst = 214721389;
+	tmp = *lst;
+	while (tmp)
+	{
+		if (ft_sqrt(ft_pow(tmp->x - map->cenx, 2) + ft_pow(tmp->y - map->ceny, 2) < tmpdst))
+		{
+			tmpdst = ft_sqrt(ft_pow(tmp->x - map->cenx, 2) + ft_pow(tmp->y - map->ceny, 2));
+			tmpx = tmp->x;
+			tmpy = tmp->y;
+		}
+		tmp = tmp->next;
+	}
+
+	player->myx = tmpx;
+	player->myy = tmpy;
+}
+
 void	fig_to_myplayer(t_fig *fig, t_check *test, t_pla *player)
 {
 	int i;
@@ -34,7 +110,7 @@ void	fig_to_myplayer(t_fig *fig, t_check *test, t_pla *player)
 	}
 }
 
-int check_put(char **figmap, char **map, int i, int j, t_pla *player, t_check *test)
+int check_put(t_fig *fig,  t_map *map, int i, int j, t_pla *player, t_check *test)
 {
 	ft_putstr_fd("check_put\n", test->fd);
 	int x;
@@ -47,13 +123,13 @@ int check_put(char **figmap, char **map, int i, int j, t_pla *player, t_check *t
 	newj = j;
 	count = 0;
 	x = 0;
-	while (figmap[x])
+	while (fig->figmap[x])
 	{
 		y = 0;
 		newj = j;
-		while (figmap[x][y])
+		while (fig->figmap[x][y])
 		{
-			if (map[newi][newj] == figmap[x][y])
+			if (map->map[newi][newj] == fig->figmap[x][y])
 				count++;
 			y++;
 			newj++;
@@ -63,8 +139,10 @@ int check_put(char **figmap, char **map, int i, int j, t_pla *player, t_check *t
 	}
 	if (count == 1)
 	{
-		player->myx = i;
-		player->myy = j;
+
+		write_coor_in_lst(&(map->lst), i, j);
+		/*player->myx = i;
+		player->myy = j;*/
 		ft_putstr_fd("cord i -->>> ", test->fd);
 		ft_putnbr_fd(i, test->fd);
 		ft_putchar_fd('\n', test->fd);
@@ -77,13 +155,18 @@ int check_put(char **figmap, char **map, int i, int j, t_pla *player, t_check *t
 		ft_putstr_fd("new j -->>> ", test->fd);
 		ft_putnbr_fd(newj, test->fd);
 		ft_putchar_fd('\n', test->fd);
+		count = 0;
+	}
+	if (i == (map->col - fig->fcol + 1) && j == (map->row - fig->frow + 1))
+	{
+		select_shortly(&(map->lst), map, player);
 		return (1);
 	}
 	return (0);
 }
 
 
-int to_put_coordin(char **figmap, char **mapp, t_fig *fig, t_map *map, t_pla *player, t_check *test)
+int to_put_coordin(t_fig *fig, t_map *map, t_pla *player, t_check *test)
 {
 	ft_putstr_fd("in to put\n", test->fd);
 	int i;
@@ -103,7 +186,7 @@ int to_put_coordin(char **figmap, char **mapp, t_fig *fig, t_map *map, t_pla *pl
 				ft_putstr_fd("j -->>> ", test->fd);
 				ft_putnbr_fd(j, test->fd);
 				ft_putchar_fd('\n', test->fd);*/
-			if (check_put(figmap, mapp, i, j, player, test))
+			if (check_put(fig, map, i, j, player, test))
 				return (1);
 			j++;
 		}
@@ -115,14 +198,13 @@ int to_put_coordin(char **figmap, char **mapp, t_fig *fig, t_map *map, t_pla *pl
 void	put_my_fig(t_fig *fig, t_pla *player, t_map *map, t_check *test)
 {
 	ft_putstr_fd("in put my fig\n", test->fd);
-	if (to_put_coordin(fig->figmap, map->map, fig, map, player, test) == 1)
+	if (to_put_coordin(fig, map, player, test) == 1)
 	{
 		ft_putnbr_fd(player->myx, 1);
 		ft_putchar_fd(' ', 1);
 		ft_putnbr_fd(player->myy, 1);
 		ft_putchar_fd('\n', 1);
 		player->myx = 0;
-		fig->first_fig_done = 1;
 	}
 	else
 	{
@@ -196,7 +278,7 @@ void	make_next_step(t_map *map, t_pla *player, t_fig *fig, t_check *test);
 
 }
 */
-void	take_fig_coordin(t_fig *fig, t_check *test)
+/*void	take_fig_coordin(t_fig *fig, t_check *test)
 {
 	int i;
 	int j;
@@ -222,7 +304,7 @@ void	take_fig_coordin(t_fig *fig, t_check *test)
 			return ;
 		i++;
 	}
-}
+}*/
 
 void take_cordin_myplayer(t_map *map, t_pla *player, t_check *test)
 {
@@ -268,10 +350,7 @@ void	struct_init(t_map *map, t_pla *player, t_fig *fig)
 	fig->f = 0;
 	fig->first_fig_done = 0;
 	map->m = 0;
-	fig->figx = 0;
-	fig->figy = 0;
-	fig->putx = 0;
-	fig->puty = 0;
+
 }
 void	reset_all_value(t_map *map, t_fig *fig)
 {
@@ -286,10 +365,6 @@ void	reset_all_value(t_map *map, t_fig *fig)
 	map->m = 0;
 	map->cenx = 0;
 	map->ceny = 0;
-	fig->figx = 0;
-	fig->figy = 0;
-	fig->putx = 0;
-	fig->puty = 0;
 	free(fig->figmap);
 	free(map->map);
 }
@@ -307,11 +382,13 @@ int main(void)
 
 	i = 0;
 	j = 0;
-	test = (t_check *) malloc(sizeof(*test));
-	map = (t_map *) malloc(sizeof(*map));
-	fig = (t_fig *) malloc(sizeof(*fig));
-	player = (t_pla *) malloc(sizeof(*player));
+	test = (t_check *) malloc(sizeof(test));
+	map = (t_map *) malloc(sizeof(map));
+	fig = (t_fig *) malloc(sizeof(fig));
+	player = (t_pla *) malloc(sizeof(player));
 	struct_init(map, player, fig);
+
+
 
 	test->fd = open("debug1.txt", O_CREAT | O_RDWR);
 	while (get_next_line(0, &line) > 0)
@@ -324,10 +401,13 @@ int main(void)
 		if (ft_strstr(line, "Plateau"))
 		{
 			get_map_size(&line, map);
-			/*ft_putstr_fd("col = ", test->fd);
-			ft_putnbr_fd(map->col, test->fd);
-			ft_putstr_fd("row = ", test->fd);
-			ft_putnbr_fd(map->row, test->fd);*/
+			map->cenx = map->col / 2;
+			map->ceny = map->row / 2;
+			ft_putstr_fd("centr x = ", test->fd);
+			ft_putnbr_fd(map->cenx, test->fd);
+			ft_putstr_fd("centr y = ", test->fd);
+			ft_putnbr_fd(map->ceny, test->fd);
+			ft_putchar_fd('\n', test->fd);
 		}
 		if (line[0] == '0')
 		{
@@ -381,45 +461,16 @@ int main(void)
 				ft_putchar_fd('\n', test->fd);*/
 				put_my_fig(fig, player, map, test);
 				reset_all_value(map, fig);
+				fig->first_fig_done = 1;
 			}
-			else
+			else if (fig->first_fig_done)
 			{
 				fig_to_myplayer(fig, test, player);
 				put_my_fig(fig, player, map, test);
 				reset_all_value(map, fig);
 			}
 		}
-
-
-		/*if (can_put(fig, map) == 1)
-			make_step(map, player, fig);*/
-		/*cord_my_fig(player, map);
-		cord_op_fig(player, map);*/
 	}
-	/*i = 0;
-	while (map->map[i])
-	{
-		j = 0;
-		while (map->map[i][j])
-		{
-			ft_putchar_fd(map->map[i][j], test->fd);
-			j++;
-		}
-		ft_putchar_fd('\n', test->fd);
-		i++;
-	}
-	i = 0;
-	while (fig->figmap[i])
-	{
-		j = 0;
-		while (fig->figmap[i][j])
-		{
-			ft_putchar_fd(fig->figmap[i][j], test->fd);
-			j++;
-		}
-		ft_putchar_fd('\n', test->fd);
-		i++;
-	}*/
 	return (0);
 }
 
