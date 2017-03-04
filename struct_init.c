@@ -20,5 +20,6 @@ void	struct_init(t_map *map, t_pla *player, t_fig *fig)
 	fig->f = 0;
 	fig->first_fig_done = 0;
 	map->m = 0;
+	map->lst = NULL;
 
 }

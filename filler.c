@@ -13,7 +13,6 @@
 
 #include "filler.h"
 
-
 int main(void)
 {
 	char *line;
@@ -31,9 +30,6 @@ int main(void)
 	fig = (t_fig *) malloc(sizeof(fig));
 	player = (t_pla *) malloc(sizeof(player));
 	struct_init(map, player, fig);
-
-
-
 	test->fd = open("debug1.txt", O_CREAT | O_RDWR);
 	while (get_next_line(0, &line) > 0)
 	{
@@ -96,13 +92,6 @@ int main(void)
 				i++;
 				}
 				take_cordin_myplayer(map, player, test);
-				//take_fig_coordin(fig, test);
-				/*ft_putstr_fd("my figx -->>> ", test->fd);
-				ft_putnbr_fd(fig->figx, test->fd);
-				ft_putchar_fd('\n', test->fd);
-				ft_putstr_fd("my figy -->>> ", test->fd);
-				ft_putnbr_fd(fig->figy, test->fd);
-				ft_putchar_fd('\n', test->fd);*/
 				put_my_fig(fig, player, map, test);
 				reset_all_value(map, fig);
 				fig->first_fig_done = 1;

@@ -1,6 +1,6 @@
 #include "filler.h"
 
-int to_put_coordin(t_fig *fig, t_map *map, t_pla *player, t_check *test)
+int take_cor_where_to_put(t_fig *fig, t_map *map, t_pla *player, t_check *test)
 {
 	ft_putstr_fd("in to put\n", test->fd);
 	int i;
@@ -20,7 +20,7 @@ int to_put_coordin(t_fig *fig, t_map *map, t_pla *player, t_check *test)
 				ft_putstr_fd("j -->>> ", test->fd);
 				ft_putnbr_fd(j, test->fd);
 				ft_putchar_fd('\n', test->fd);*/
-			if (check_put(fig, map, i, j, player, test))
+			if (check_put(fig, map, i, j, player, test))  //possible to put? and choose best coordin
 				return (1);
 			j++;
 		}
