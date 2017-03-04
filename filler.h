@@ -54,4 +54,19 @@ typedef struct s_player
 	int opy;
 }				t_pla;
 
+int ft_pow(int nb, int power);
+int ft_sqrt(int nb);
+void write_coor_in_lst(t_flist **lst, int i, int j);
+void select_short_way_tocenr(t_flist **lst, t_map *map, t_pla *player, t_check *test);
+void fig_to_myplayer(t_fig *fig, t_check *test, t_pla *player);
+int check_put(t_fig *fig, t_map *map, int i, int j, t_pla *player, t_check *test);
+int to_put_coordin(t_fig *fig, t_map *map, t_pla *player, t_check *test);
+void	put_my_fig(t_fig *fig, t_pla *player, t_map *map, t_check *test);
+char get_player(char *str, t_pla *player);
+void	get_map_size(char **line, t_map *map);
+void	take_figure_size(char *line, struct s_fig *fig);
+void take_cordin_myplayer(t_map *map, t_pla *player, t_check *test);
+void	struct_init(t_map *map, t_pla *player, t_fig *fig);
+void	reset_all_value(t_map *map, t_fig *fig);
+
 #endif
