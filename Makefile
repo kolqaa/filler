@@ -6,7 +6,7 @@
 #    By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/18 10:09:09 by nsimonov          #+#    #+#              #
-#    Updated: 2017/03/05 15:18:47 by nsimonov         ###   ########.fr        #
+#    Updated: 2017/03/05 21:17:09 by nsimonov         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,6 +16,7 @@ SRC =   filler.c \
 		libft/ft_strchr.c \
 		libft/ft_atoi.c \
 		libft/ft_putstr_fd.c \
+		analyze_fig.c \
 		libft/ft_strlen.c \
 		libft/ft_strstr.c \
 		libft/ft_putnbr_fd.c \
@@ -26,7 +27,7 @@ SRC =   filler.c \
 		ft_sqrt.c \
 		write_coor_in_lst.c \
 		select_short_way_tocenr.c \
-		fig_to_my_player.c \
+		rebuild_myfig.c \
 		check_put.c \
 		take_cor_where_to_put.c \
 		put_my_fig.c \

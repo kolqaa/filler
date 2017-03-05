@@ -27,7 +27,4 @@ void	struct_init(t_map *map, t_pla *player, t_fig *fig)
 	map->Bdiagy = 0;
 	map->hor = 0;
 	map->ver = 0;
-	map->flag = 0;
-
-
 }

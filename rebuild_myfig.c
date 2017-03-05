@@ -1,6 +1,6 @@
 #include "filler.h"
 
-void	fig_to_myplayer(t_fig *fig, t_check *test, t_pla *player)
+void	rebuild_myfig(t_fig *fig, t_check *test, t_pla *player)
 {
 	int i;
 	int j;
