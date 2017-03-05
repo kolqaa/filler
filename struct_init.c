@@ -21,5 +21,13 @@ void	struct_init(t_map *map, t_pla *player, t_fig *fig)
 	fig->first_fig_done = 0;
 	map->m = 0;
 	map->lst = NULL;
+	map->Adiagx = 0;
+	map->Adiagy = 0;
+	map->Bdiagx = 0;
+	map->Bdiagy = 0;
+	map->hor = 0;
+	map->ver = 0;
+	map->flag = 0;
+
 
 }

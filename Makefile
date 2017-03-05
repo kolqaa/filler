@@ -6,7 +6,7 @@
 #    By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/18 10:09:09 by nsimonov          #+#    #+#              #
-#    Updated: 2017/03/04 14:38:23 by nsimonov         ###   ########.fr        #
+#    Updated: 2017/03/05 15:18:47 by nsimonov         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,6 +35,8 @@ SRC =   filler.c \
 		take_figure_size.c \
 		take_cordin_myplayer.c \
 		struct_init.c \
+		short_way_to_diagA.c \
+		short_way_to_diagB.c \
 		reset_all_value.c
 
 

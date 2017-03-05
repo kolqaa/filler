@@ -6,6 +6,7 @@
 
 void select_short_way_tocenr(t_flist **lst, t_map *map, t_pla *player, t_check *test) //find way to centr
 {
+	/*check my lst of all possible coordinate and choose best one which close to the center*/
 	t_flist *tmp;
 
 	ft_putstr_fd("select shortly\n", test->fd);
@@ -15,13 +16,13 @@ void select_short_way_tocenr(t_flist **lst, t_map *map, t_pla *player, t_check *
 
 	tmpdst = 214721389;
 	tmp = *lst;
-	ft_putchar_fd('\n', test->fd);
+	/*ft_putchar_fd('\n', test->fd);
 	ft_putstr_fd("CENTR x -->>> ", test->fd);
 	ft_putnbr_fd(map->cenx, test->fd);
 	ft_putchar_fd('\n', test->fd);
 	ft_putstr_fd("CENTR y-->>> ", test->fd);
 	ft_putnbr_fd(map->ceny, test->fd);
-	ft_putchar_fd('\n', test->fd);
+	ft_putchar_fd('\n', test->fd);*/
 	while (tmp)
 	{
 		if (ft_sqrt(ft_pow(tmp->x - map->cenx, 2) + ft_pow(tmp->y - map->ceny, 2)) < tmpdst)
@@ -31,7 +32,7 @@ void select_short_way_tocenr(t_flist **lst, t_map *map, t_pla *player, t_check *
 			tmpx = tmp->x;
 			tmpy = tmp->y;
 		}
-			ft_putchar_fd('\n', test->fd);
+/*			ft_putchar_fd('\n', test->fd);
 	ft_putstr_fd("in while dst ", test->fd);
 	ft_putnbr_fd(tmpdst, test->fd);
 		ft_putchar_fd('\n', test->fd);
@@ -43,7 +44,7 @@ void select_short_way_tocenr(t_flist **lst, t_map *map, t_pla *player, t_check *
 	ft_putchar_fd('\n', test->fd);
 	ft_putstr_fd("in while tmp->y ", test->fd);
 	ft_putnbr_fd(tmp->y, test->fd);
-	ft_putchar_fd('\n', test->fd);
+	ft_putchar_fd('\n', test->fd);*/
 		tmp = tmp->next;
 	}
 	player->myx = tmpx;

@@ -20,11 +20,12 @@ int take_cor_where_to_put(t_fig *fig, t_map *map, t_pla *player, t_check *test)
 				ft_putstr_fd("j -->>> ", test->fd);
 				ft_putnbr_fd(j, test->fd);
 				ft_putchar_fd('\n', test->fd);*/
-			if (check_put(fig, map, i, j, player, test))  //possible to put? and choose best coordin
-				return (1);
+			check_put(fig, map, i, j, player, test); //possible to put? and choose best coordin
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	if (map->lst == NULL)
+		return (0);
+	return (1);
 }
