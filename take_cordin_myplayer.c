@@ -5,27 +5,27 @@
 #include "filler.h"
 
 
-void take_cordin_myplayer(t_map *map, t_pla *player, t_check *test)
+void take_cordin_myplayer(t_data *data)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (map->map[i])
+	while (data->map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (data->map[i][j])
 		{
-			if (map->map[i][j] == player->my_player)
+			if (data->map[i][j] == data->my_player)
 			{
-				player->myx = i;
-				player->myy = j;
+				data->myx = i;
+				data->myy = j;
 			}
-			if (map->map[i][j] == player->op_player)
+			if (data->map[i][j] == data->op_player)
 			{
-				player->opx = i;
-				player->opy = j;
+				data->opx = i;
+				data->opy = j;
 			}
 			j++;
 		}

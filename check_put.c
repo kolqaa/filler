@@ -1,7 +1,7 @@
 
 #include "filler.h"
 
-int check_put(t_fig *fig, t_map *map, int i, int j, t_pla *player, t_check *test)
+int check_put(t_data *data, int i, int j)
 {
 	/*Here we check all possible way to put my figure, and check one crosses with my player or last put figure
 	 * if we find that coordinate we write it in my chained list
@@ -17,16 +17,16 @@ int check_put(t_fig *fig, t_map *map, int i, int j, t_pla *player, t_check *test
 	newj = j;
 	count = 0;
 	x = 0;
-	while (fig->figmap[x] && map->map[newi])
+	while (data->figmap[x] && data->map[newi])
 	{
 		y = 0;
 		newj = j;
-		while (fig->figmap[x][y] && map->map[newi][newj])
+		while (data->figmap[x][y] && data->map[newi][newj])
 		{
-			if (map->map[newi][newj] == fig->figmap[x][y])
+			if (data->map[newi][newj] == data->figmap[x][y])
 				count++;
-			if(map->map[newi][newj] == player->op_player &&
-					fig->figmap[x][y] == player->my_player)
+			if(data->map[newi][newj] == data->op_player &&
+					data->figmap[x][y] == data->my_player)
 				return (0);
 			y++;
 			newj++;
@@ -36,8 +36,8 @@ int check_put(t_fig *fig, t_map *map, int i, int j, t_pla *player, t_check *test
 	}
 	if (count == 1)
 	{
-		ft_putstr_fd("in count == 1\n", test->fd);
-		write_coor_in_lst(&(map->lst), i, j, test);
+		ft_putstr_fd("in count == 1\n", data->fd);
+		write_coor_in_lst(&(data->lst), i, j, data);
 		count = 0;
 	}
 	return (0);

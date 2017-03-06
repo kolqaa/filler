@@ -4,27 +4,28 @@
 
 #include "filler.h"
 
-void	struct_init(t_map *map, t_pla *player, t_fig *fig)
+void struct_init(t_data *data)
 {
-	player->my_player = 0;
-	player->op_player = 0;
-	player->myx = 0;
-	player->myy = 0;
-	player->opx = 0;
-	player->opy = 0;
-	map->col = 0;
-	map->row = 0;
-	fig->fcol = 0;
-	fig->frow = 0;
-	fig->flag_for_fig = 0;
-	fig->f = 0;
-	fig->first_fig_done = 0;
-	map->m = 0;
-	map->lst = NULL;
-	map->Adiagx = 0;
-	map->Adiagy = 0;
-	map->Bdiagx = 0;
-	map->Bdiagy = 0;
-	map->hor = 0;
-	map->ver = 0;
+	data->my_player = 0;
+	data->op_player = 0;
+	data->myx = 0;
+	data->myy = 0;
+	data->opx = 0;
+	data->opy = 0;
+	data->col = 0;
+	data->row = 0;
+	data->fcol = 0;
+	data->frow = 0;
+	data->flag_for_fig = 0;
+	data->f = 0;
+	data->first_fig_done = 0;
+	data->m = 0;
+	data->lst = NULL;
+	data->Adiagx = 0;
+	data->Adiagy = 0;
+	data->Bdiagx = 0;
+	data->Bdiagy = 0;
+	data->hor = 0;
+	data->ver = 0;
+	data->exist = 0;
 }

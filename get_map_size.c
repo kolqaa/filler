@@ -1,22 +1,22 @@
 #include "filler.h"
 
-void	get_map_size(char **line, t_map *map)
+void	get_map_size(char **line, t_data *data)
 {
 	while (**line)
 	{
 		if (**line >= '0' && **line <= '9')
 		{
-			if (map->col == 0)
-				map->col = ft_atoi(*line);
+			if (data->col == 0)
+				data->col = ft_atoi(*line);
 			else
-				map->row = ft_atoi(*line);
+				data->row = ft_atoi(*line);
 			while (**line >= '0' && **line <= '9')
 				(*line)++;
 		}
 		(*line)++;
 	}
-	map->map = (char **)malloc(sizeof(char *) * (map->col + 1));
-	if (map->map == NULL)
+	data->map = (char **)malloc(sizeof(char *) * (data->col + 1));
+	if (data->map == NULL)
 		return ;
-	map->map[map->col] = 0;
+	data->map[data->col] = 0;
 }

@@ -1,6 +1,6 @@
 #include "filler.h"
 
-char get_player(char *str, t_pla *player)
+char get_player(char *str, t_data *data)
 {
 	int i;
 
@@ -9,13 +9,15 @@ char get_player(char *str, t_pla *player)
 	{
 		if (str[i] == 'p' && str[i + 1] == '1')
 		{
-			player->op_player = P2;
+			data->op_player = P2;
+			data->exist = 1;
 			return (P1);
 		}
 
 		if (str[i] == 'p' && str[i + 1] == '2')
 		{
-			player->op_player = P1;
+			data->op_player = P1;
+			data->exist = 1;
 			return (P2);
 		}
 		i++;

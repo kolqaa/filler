@@ -18,89 +18,86 @@
 int main(void)
 {
 	char *line;
-	t_map *map;
-	t_fig *fig;
-	t_pla *player;
-	t_check *test;
+	t_data *data;
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	test = (t_check *) malloc(sizeof(test));
-	map = (t_map *) malloc(sizeof(map));
-	fig = (t_fig *) malloc(sizeof(fig));
-	player = (t_pla *) malloc(sizeof(player));
-	struct_init(map, player, fig);
-	test->fd = open("debug1.txt", O_CREAT | O_RDWR);
-	while (get_next_line(0, &line) > 0)
+	data = (t_data *) malloc(sizeof(*data));
+	struct_init(data);
+	data->fd = open("debug1.txt", O_CREAT | O_RDWR);
+
+while (get_next_line(0, &line) > 0)
 	{
-		if (ft_strstr(line, "$$$"))
+
+		if (ft_strstr(line, "$$$") && data->exist == 0)
 		{
-			player->my_player = get_player(line, player);
-			player->myx = BEGINING_OF_THE_GAME;
+			data->my_player = get_player(line, data);
+			data->myx = BEGINING_OF_THE_GAME;
 		}
 		if (ft_strstr(line, "Plateau"))
 		{
-			get_map_size(&line, map);
-			map->cenx = map->col / 2;
-			map->ceny = map->row / 2;
+			get_map_size(&line, data);
+			data->cenx = data->col / 2;
+			data->ceny = data->row / 2;
 		}
 		if (line[0] == '0')
 		{
-			ft_putstr_fd("my line1 -->>>   ", test->fd);
-			ft_putstr_fd(line, test->fd);
-			ft_putchar_fd('\n', test->fd);
-			map->map[map->m] = &line[4];
-			map->m++;
+			ft_putstr_fd("my line1 -->>>   ", data->fd);
+			ft_putstr_fd(line, data->fd);
+			ft_putchar_fd('\n', data->fd);
+			data->map[data->m] = &line[4];
+			data->m++;
 		}
 		if (ft_strstr(line, "Piece"))
 		{
-			take_figure_size(line, fig);
-			fig->flag_for_fig = 1;
+			take_figure_size(line, data);
+			data->flag_for_fig = 1;
 		}
-		if ((line[0] == '.' || line[0] == '*') && (fig->flag_for_fig))
+		if ((line[0] == '.' || line[0] == '*') && (data->flag_for_fig))
 		{
-			ft_putstr_fd("my line -->>>   ", test->fd);
-			ft_putstr_fd(line, test->fd);
-			ft_putchar_fd('\n', test->fd);
+			ft_putstr_fd("my line -->>>   ", data->fd);
+			ft_putstr_fd(line, data->fd);
+			ft_putchar_fd('\n', data->fd);
 			/*ft_putnbr_fd(fig->fcol, test->fd);
 			ft_putnbr_fd(fig->frow, test->fd);*/
-			fig->figmap[fig->f] = line;
-			fig->f++;
+			data->figmap[data->f] = line;
+			data->f++;
 		}
-		if(fig->f == fig->fcol && fig->flag_for_fig) //here last line when fig is read
-		{
-			if (player->myx == BEGINING_OF_THE_GAME) // put first fig;
+		if(data->f == data->fcol && data->flag_for_fig) //here last line when fig is read
+		{/*
+			if (data->myx == BEGINING_OF_THE_GAME) // put first fig;
 			{
-				ft_putstr_fd("in BEGGING", test->fd);
-				ft_putchar_fd('\n', test->fd);
-				rebuild_myfig(fig, test, player);
+				ft_putstr_fd("in BEGGING", data->fd);
+				ft_putchar_fd('\n', data->fd);
+				rebuild_myfig(data);
 				i = 0;
-				while (fig->figmap[i])
+				while (data->figmap[i])
 				{
 					j= 0;
-					while (fig->figmap[i][j])
+					while (data->figmap[i][j])
 					{
-						ft_putchar_fd(fig->figmap[i][j], test->fd);
+						ft_putchar_fd(data->figmap[i][j], data->fd);
 						j++;
 					}
-				ft_putchar_fd('\n', test->fd);
+				ft_putchar_fd('\n', data->fd);
 				i++;
 				}
-				take_cordin_myplayer(map, player, test);
-				put_my_fig(fig, player, map, test);
-				reset_all_value(map, fig);
-				fig->first_fig_done = 1;
+				take_cordin_myplayer(data);
+				put_my_fig(data);
+				reset_all_value(data);
+				data->first_fig_done = 1;
 			}
-			else if (fig->first_fig_done)
-			{
-				ft_putstr_fd("FRIST FIG DONE\n", test->fd);
-				analyze_fig(fig, map, test);
-				rebuild_myfig(fig, test, player);
-				put_my_fig(fig, player, map, test);
-				reset_all_value(map, fig);
-			}
+			else if (data->first_fig_done)
+			{*/
+				ft_putstr_fd("FRIST FIG DONE\n", data->fd);
+				analyze_fig(data);
+				rebuild_myfig(data);
+				take_cordin_myplayer(data);
+				put_my_fig(data);
+				reset_all_value(data);
+			//}
 		}
 	}
 	return (0);

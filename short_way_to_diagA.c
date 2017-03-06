@@ -1,11 +1,11 @@
 #include "filler.h"
 
-void short_way_to_diagA(t_flist **lst, t_map *map, t_pla *player, t_check *test) //find way to centr
+void short_way_to_diagA(t_flist **lst, t_data *data) //find way to centr
 {
 	/*check my lst of all possible coordinate and choose best one which close to the center*/
 	t_flist *tmp;
 
-	ft_putstr_fd("SHORT WAY TO A\n", test->fd);
+	ft_putstr_fd("SHORT WAY TO A\n", data->fd);
 	int tmpx;
 	int tmpy;
 	int tmpdst;
@@ -16,18 +16,18 @@ void short_way_to_diagA(t_flist **lst, t_map *map, t_pla *player, t_check *test)
 	while (tmp)
 	{
 		if (ft_sqrt(
-				ft_pow(tmp->x - map->Adiagx, 2) + ft_pow(tmp->y - map->Adiagy, 2)) <
+				ft_pow(tmp->x - data->Adiagx, 2) + ft_pow(tmp->y - data->Adiagy, 2)) <
 			tmpdst)
 		{
-			tmpdst = ft_sqrt(ft_pow(tmp->x - map->Adiagx, 2) +
-							 ft_pow(tmp->y - map->Adiagy, 2));
+			tmpdst = ft_sqrt(ft_pow(tmp->x - data->Adiagx, 2) +
+							 ft_pow(tmp->y - data->Adiagy, 2));
 			tmpx = tmp->x;
 			tmpy = tmp->y;
 		}
 		tmp = tmp->next;
 	}
-	player->myx = tmpx;
-	player->myy = tmpy;
+	data->myx = tmpx;
+	data->myy = tmpy;
 	/*ft_putchar_fd('\n', test->fd);
 	ft_putstr_fd("Amy coord to put x -->>> ", test->fd);
 	ft_putnbr_fd(tmpx, test->fd);

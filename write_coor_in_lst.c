@@ -1,10 +1,10 @@
 #include "filler.h"
 
 
-void	write_coor_in_lst(t_flist **lst, int i, int j, t_check *test) // create and write cor in lst
+void write_coor_in_lst(t_flist **lst, int i, int j, t_data *data) // create and write cor in lst
 {
-	ft_putchar_fd('\n', test->fd);
-	ft_putstr_fd("in write cor\n", test->fd);
+	ft_putchar_fd('\n', data->fd);
+	ft_putstr_fd("in write cor\n", data->fd);
 	t_flist *tmp;
 	t_flist *tmp2;
 /*

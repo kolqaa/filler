@@ -1,20 +1,20 @@
 #include "filler.h"
 
-void	rebuild_myfig(t_fig *fig, t_check *test, t_pla *player)
+void rebuild_myfig(t_data *data)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (fig->figmap[i])
+	while (data->figmap[i])
 	{
 		j = 0;
-		while (fig->figmap[i][j])
+		while (data->figmap[i][j])
 		{
-			if (fig->figmap[i][j] == '*')
-				fig->figmap[i][j] = player->my_player;
-			if (fig->figmap[i][j] == '.')
-				fig->figmap[i][j] = ',';
+			if (data->figmap[i][j] == '*')
+				data->figmap[i][j] = data->my_player;
+			if (data->figmap[i][j] == '.')
+				data->figmap[i][j] = ',';
 			j++;
 		}
 		i++;
