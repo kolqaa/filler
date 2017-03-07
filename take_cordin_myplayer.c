@@ -10,6 +10,7 @@ void take_cordin_myplayer(t_data *data)
 	int i;
 	int j;
 
+	ft_putstr_fd("TAKE COR MY PALYER\n", data->fd);
 	i = 0;
 	j = 0;
 	while (data->map[i])

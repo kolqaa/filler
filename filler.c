@@ -39,6 +39,12 @@ while (get_next_line(0, &line) > 0)
 		if (ft_strstr(line, "Plateau"))
 		{
 			get_map_size(&line, data);
+			ft_putstr_fd("data->col ", data->fd);
+			ft_putnbr_fd(data->col, data->fd);
+			ft_putchar_fd('\n', data->fd);
+			ft_putstr_fd("data->col ", data->fd);
+			ft_putnbr_fd(data->row, data->fd);
+			ft_putchar_fd('\n', data->fd);
 			data->cenx = data->col / 2;
 			data->ceny = data->row / 2;
 		}
@@ -52,10 +58,11 @@ while (get_next_line(0, &line) > 0)
 		}
 		if (ft_strstr(line, "Piece"))
 		{
+			ft_putstr_fd("IN Piece\n", data->fd);
 			take_figure_size(line, data);
 			data->flag_for_fig = 1;
 		}
-		if ((line[0] == '.' || line[0] == '*') && (data->flag_for_fig))
+		if ((line[0] == '.' || line[0] == '*') && (data->flag_for_fig == 1))
 		{
 			ft_putstr_fd("my line -->>>   ", data->fd);
 			ft_putstr_fd(line, data->fd);
@@ -65,39 +72,23 @@ while (get_next_line(0, &line) > 0)
 			data->figmap[data->f] = line;
 			data->f++;
 		}
-		if(data->f == data->fcol && data->flag_for_fig) //here last line when fig is read
-		{/*
-			if (data->myx == BEGINING_OF_THE_GAME) // put first fig;
-			{
-				ft_putstr_fd("in BEGGING", data->fd);
-				ft_putchar_fd('\n', data->fd);
-				rebuild_myfig(data);
-				i = 0;
-				while (data->figmap[i])
-				{
-					j= 0;
-					while (data->figmap[i][j])
-					{
-						ft_putchar_fd(data->figmap[i][j], data->fd);
-						j++;
-					}
-				ft_putchar_fd('\n', data->fd);
-				i++;
-				}
-				take_cordin_myplayer(data);
-				put_my_fig(data);
-				reset_all_value(data);
-				data->first_fig_done = 1;
-			}
-			else if (data->first_fig_done)
-			{*/
+		if(data->f == data->fcol && data->flag_for_fig == 1) //here last line when fig is read
+		{
 				ft_putstr_fd("FRIST FIG DONE\n", data->fd);
 				analyze_fig(data);
+				ft_putstr_fd("REBUILDT\n", data->fd);
 				rebuild_myfig(data);
 				take_cordin_myplayer(data);
+				ft_putstr_fd("op-x ", data->fd);
+				ft_putnbr_fd(data->opx, data->fd);
+				ft_putchar_fd('\n', data->fd);
+				ft_putstr_fd("op-y", data->fd);
+				ft_putnbr_fd(data->opy, data->fd);
+				ft_putchar_fd('\n', data->fd);
+				ft_putstr_fd("TAKE CORD\n", data->fd);
+				ft_putstr_fd("BEF PUT\n", data->fd);
 				put_my_fig(data);
 				reset_all_value(data);
-			//}
 		}
 	}
 	return (0);

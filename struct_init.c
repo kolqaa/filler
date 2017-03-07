@@ -16,7 +16,7 @@ void struct_init(t_data *data)
 	data->row = 0;
 	data->fcol = 0;
 	data->frow = 0;
-	data->flag_for_fig = 0;
+	data->flag_for_fig = 2;
 	data->f = 0;
 	data->first_fig_done = 0;
 	data->m = 0;
@@ -28,4 +28,6 @@ void struct_init(t_data *data)
 	data->hor = 0;
 	data->ver = 0;
 	data->exist = 0;
+	data->oprightdown = 0;
+	data->opleftup = 0;
 }

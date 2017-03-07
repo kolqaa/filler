@@ -1,5 +1,58 @@
 #include "filler.h"
 
+void select_short_way_enemy(t_flist **lst, t_data *data) //find way to centr
+{
+	/*check my lst of all possible coordinate and choose best one which close to the center*/
+	t_flist *tmp;
+
+	ft_putstr_fd("select shortly\n", data->fd);
+	int tmpx;
+	int tmpy;
+	int tmpdst;
+
+	tmpdst = 214721389;
+	tmp = *lst;
+	/*ft_putchar_fd('\n', test->fd);
+	ft_putstr_fd("CENTR x -->>> ", test->fd);
+	ft_putnbr_fd(map->cenx, test->fd);
+	ft_putchar_fd('\n', test->fd);
+	ft_putstr_fd("CENTR y-->>> ", test->fd);
+	ft_putnbr_fd(map->ceny, test->fd);
+	ft_putchar_fd('\n', test->fd);*/
+	while (tmp)
+	{
+		if (ft_sqrt(ft_pow(tmp->x - data->opx, 2) + ft_pow(tmp->y - data->opy, 2)) < tmpdst)
+		{
+			ft_putstr_fd("IN IFFFFFFFFFFF\n", data->fd);
+			tmpdst = ft_sqrt(ft_pow(tmp->x - data->opx, 2) + ft_pow(tmp->y - data->opy, 2));
+			tmpx = tmp->x;
+			tmpy = tmp->y;
+		}
+/*			ft_putchar_fd('\n', test->fd);
+	ft_putstr_fd("in while dst ", test->fd);
+	ft_putnbr_fd(tmpdst, test->fd);
+		ft_putchar_fd('\n', test->fd);
+		ft_putstr_fd("in while sqrt ", test->fd);
+	ft_putnbr_fd(ft_sqrt(ft_pow(tmp->x - map->cenx, 2) + ft_pow(tmp->y - map->ceny, 2)), test->fd);
+		ft_putchar_fd('\n', test->fd);
+	ft_putstr_fd("in while tmp->x ", test->fd);
+	ft_putnbr_fd(tmp->x, test->fd);
+	ft_putchar_fd('\n', test->fd);
+	ft_putstr_fd("in while tmp->y ", test->fd);
+	ft_putnbr_fd(tmp->y, test->fd);
+	ft_putchar_fd('\n', test->fd);*/
+		tmp = tmp->next;
+	}
+	data->myx = tmpx;
+	data->myy = tmpy;
+	ft_putchar_fd('\n', data->fd);
+	ft_putstr_fd("my coord to put x -->>> ", data->fd);
+	ft_putnbr_fd(tmpx, data->fd);
+	ft_putchar_fd('\n', data->fd);
+	ft_putstr_fd("mycoord to put y-->>> ", data->fd);
+	ft_putnbr_fd(tmpy, data->fd);
+	ft_putchar_fd('\n', data->fd);
+}
 
 void	take_diagonal(t_data *data)
 { /* take two diagonal where we should to move. Based on the position of my enemy.
@@ -11,6 +64,7 @@ void	take_diagonal(t_data *data)
 		data->Adiagy = data->ceny + SHIFTY;
 		data->Bdiagx = data->cenx + SHIFTX;
 		data->Bdiagy = 0;
+		data->opleftup = 1;
 	}
 	if (data->opx < data->cenx && data->opy > data->ceny)
 	{
@@ -29,85 +83,28 @@ void	take_diagonal(t_data *data)
 	}
 	if (data->opx > data->cenx && data->opy > data->ceny)
 	{
-
 		data->Bdiagx = data->cenx - SHIFTX;
 		data->Bdiagy = data->row;
 		data->Adiagx = data->col;
 		data->Adiagy = data->ceny - SHIFTY;
+		data->oprightdown = 1;
 	}
-}
-
-int close_diagB(t_data *data)
-{
-	ft_putstr_fd("Close diag B\n", data->fd);
-	int i;
-	int j;
-	int flag;
-
-	i = 0;
-	j = 0;
-	flag = 0;
-	while (data->map[i][j])
-	{
-		if (data->map[i][j] == data->my_player)
-			flag++;
-		i++;
-		if (i == data->col)
-			break ;
-	}
-	if (flag)
-		return (1);
-	return (0);
-}
-
-
-int close_diagA(t_data *data)
-{
-	ft_putstr_fd("Close diagA\n", data->fd);
-	int i;
-	int j;
-	int flag;
-
-	i = 0;
-	j = 0;
-	flag = 0;
-	while (data->map[i][j])
-	{
-		if (data->map[i][j] == data->my_player)
-			flag++;
-		j++;
-	}
-	j = 0;
-	while (data->map[data->col - 1][j])
-	{
-		if (data->map[i][j] == data->my_player)
-			flag++;
-		j++;
-	}
-	if (flag)
-		return (1);
-	return (0);
 }
 
 int move_to_diag(t_data *data)
 {
-	ft_putstr_fd("in move to diag\n", data->fd);
+	/*ft_putstr_fd("in move to diag\n", data->fd);
+	if ((data->oprightdown && r_sideclosed(data) && d_sideclosed(data))
+		 || (data->opleftup && l_sideclosed(data) && up_sideclosed(data)))
+		select_short_way_tocenr(&(data->lst), data);*/
 	if (data->ver > data->hor)
 	{
-		/*ft_putstr_fd("VER > HOR\n", data->fd);
-		if (close_diagA(data) == 1)
-			short_way_to_diagB(&(data->lst), data);
-		else*/
-			short_way_to_diagA(&(data->lst), data);
+		short_way_to_diagA(&(data->lst), data);
 		return (1);
 	}
 	else
 	{
-		/*ft_putstr_fd("ELSE OT HOR\n", data->fd);
-		if (close_diagB(data) == 1)
-			short_way_to_diagA(&(data->lst), data);
-		else
-*/            short_way_to_diagB(&(data->lst), data);
+		short_way_to_diagB(&(data->lst), data);
 	}
 	return (1);
 }
@@ -123,7 +120,7 @@ int in_center(t_data *data) //check when i in centr square/
 		j = data->ceny - DELTAY;
 		while (j < data->ceny + DELTAY)
 		{
-			if (data->map[i][j] == data->my_player)
+			if (data->map[i][j] == data->my_player || data->map[i][j] == data->op_player)
 				return (1);
 			j++;
 		}
@@ -151,7 +148,6 @@ void put_my_fig(t_data *data)
 			select_short_way_tocenr(&(data->lst), data);
 			ft_memdel((void **) &(data->lst));
 			ft_putstr_fd("AFTER MEMDELI\n",data->fd);
-
 		}
 		ft_putstr_fd("PUT COORD I\n",data->fd);
 		ft_putstr_fd("player->myx = ", data->fd);
