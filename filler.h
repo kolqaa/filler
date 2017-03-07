@@ -16,8 +16,8 @@
 # define BEGINING_OF_THE_GAME 2016
 # define DELTAX (data->col / 6)
 # define DELTAY (data->row / 6)
-# define SHIFTX (data->col / 6)
-# define SHIFTY (data->row / 2)
+# define SHIFTX (data->col / 2)
+# define SHIFTY (data->row / 3)
 
 typedef struct s_flist
 {

@@ -74,6 +74,7 @@ while (get_next_line(0, &line) > 0)
 		}
 		if(data->f == data->fcol && data->flag_for_fig == 1) //here last line when fig is read
 		{
+
 				ft_putstr_fd("FRIST FIG DONE\n", data->fd);
 				analyze_fig(data);
 				ft_putstr_fd("REBUILDT\n", data->fd);

@@ -57,12 +57,13 @@ void select_short_way_enemy(t_flist **lst, t_data *data) //find way to centr
 void	take_diagonal(t_data *data)
 { /* take two diagonal where we should to move. Based on the position of my enemy.
  * We split map on the four square and check coordint of enemy and compare it whith center coordinate*/
+	ft_putstr_fd("TAKE DIAG I\n",data->fd);
 	if (data->opx < data->cenx && data->opy < data->ceny)
 	{
 
 		data->Adiagx = 0;
-		data->Adiagy = data->ceny + SHIFTY;
-		data->Bdiagx = data->cenx + SHIFTX;
+		data->Adiagy = data->ceny + SHIFTY - data->frow;
+		data->Bdiagx = data->cenx + SHIFTX - data->fcol;
 		data->Bdiagy = 0;
 		data->opleftup = 1;
 	}
@@ -83,12 +84,76 @@ void	take_diagonal(t_data *data)
 	}
 	if (data->opx > data->cenx && data->opy > data->ceny)
 	{
-		data->Bdiagx = data->cenx - SHIFTX;
+		data->Bdiagx = data->cenx - SHIFTX - data->fcol;
 		data->Bdiagy = data->row;
 		data->Adiagx = data->col;
-		data->Adiagy = data->ceny - SHIFTY;
+		data->Adiagy = data->ceny - SHIFTY - data->frow;
 		data->oprightdown = 1;
 	}
+}
+
+int b_side_closed(t_data *data)
+{
+	int i;
+	int j;
+	int flag;
+
+	flag = 0;
+	i = 0;
+	j = 0;
+	while (data->map[i][j])
+	{
+		if (data->map[i][j] == data->my_player)
+			flag++;
+		i++;
+		if (i == data->col - 1)
+			break ;
+	}
+	i = 0;
+	while (data->map[i][data->row - 1])
+	{
+		if (data->map[i][data->row - 1] == data->my_player)
+			flag++;
+		if (i == data->col - 1)
+			break ;
+	}
+	if (flag)
+	{
+		ft_putstr_fd("RETURN B SUKA\n", data->fd);
+		return (1);
+	}
+	return (0);
+}
+
+int a_side_closed(t_data *data)
+{
+	int i;
+	int j;
+	int flag;
+
+	i = 0;
+	j = 0;
+	flag = 0;
+	while (data->map[i][j])
+	{
+		if (data->map[i][j] == data->my_player)
+			flag++;
+		j++;
+	}
+	j = 0;
+	while (data->map[data->col - 1][j])
+	{
+		if (data->map[i][j] == data->my_player)
+			flag++;
+		j++;
+	}
+	if (flag)
+	{
+		ft_putstr_fd("RETURN a SUKA\n", data->fd);
+		return (1);
+	}
+	else
+		return (0);
 }
 
 int move_to_diag(t_data *data)
@@ -97,14 +162,31 @@ int move_to_diag(t_data *data)
 	if ((data->oprightdown && r_sideclosed(data) && d_sideclosed(data))
 		 || (data->opleftup && l_sideclosed(data) && up_sideclosed(data)))
 		select_short_way_tocenr(&(data->lst), data);*/
+//	if (b_side_closed(data) && a_side_closed(data))
+//		select_short_way_tocenr(&(data->lst), data);
+	ft_putstr_fd("MOVE DIAG\n",data->fd);
 	if (data->ver > data->hor)
 	{
-		short_way_to_diagA(&(data->lst), data);
+//		if (a_side_closed(data))
+//		{
+//			ft_putstr_fd("A CLOSED I\n",data->fd);
+//			short_way_to_diagB(&(data->lst), data);
+//			return (1);
+//		}
+//		else
+			short_way_to_diagA(&(data->lst), data);
 		return (1);
 	}
 	else
 	{
-		short_way_to_diagB(&(data->lst), data);
+//		if (b_side_closed(data))
+//		{
+//			ft_putstr_fd("B CLOSED\n",data->fd);
+//			short_way_to_diagA(&(data->lst), data);
+//			return (1);
+//		}
+//		else
+			short_way_to_diagB(&(data->lst), data);
 	}
 	return (1);
 }
