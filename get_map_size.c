@@ -19,4 +19,6 @@ void	get_map_size(char **line, t_data *data)
 	if (data->map == NULL)
 		return ;
 	data->map[data->col] = 0;
+	data->cenx = data->col / 2;
+	data->ceny = data->row / 2;
 }

@@ -63,11 +63,11 @@ void	take_diagonal(t_data *data)
 
 		data->Adiagx = 0;
 		data->Adiagy = data->ceny + SHIFTY - data->frow;
-		data->Bdiagx = data->cenx + SHIFTX - data->fcol;
+		data->Bdiagx = data->cenx + SHIFTX;
 		data->Bdiagy = 0;
-		data->opleftup = 1;
+		data->opstartup = 1;
 	}
-	if (data->opx < data->cenx && data->opy > data->ceny)
+	/*if (data->opx < data->cenx && data->opy > data->ceny)
 	{
 
 		data->Adiagx = 0;
@@ -81,18 +81,18 @@ void	take_diagonal(t_data *data)
 		data->Bdiagy = 0;
 		data->Adiagx = data->col;
 		data->Adiagy = data->ceny + SHIFTY;
-	}
+	}*/
 	if (data->opx > data->cenx && data->opy > data->ceny)
 	{
 		data->Bdiagx = data->cenx - SHIFTX - data->fcol;
 		data->Bdiagy = data->row;
 		data->Adiagx = data->col;
 		data->Adiagy = data->ceny - SHIFTY - data->frow;
-		data->oprightdown = 1;
+		data->opstartdown = 1;
 	}
 }
 
-int b_side_closed(t_data *data)
+int right_side_closed(t_data *data)
 {
 	int i;
 	int j;
@@ -101,14 +101,6 @@ int b_side_closed(t_data *data)
 	flag = 0;
 	i = 0;
 	j = 0;
-	while (data->map[i][j])
-	{
-		if (data->map[i][j] == data->my_player)
-			flag++;
-		i++;
-		if (i == data->col - 1)
-			break ;
-	}
 	i = 0;
 	while (data->map[i][data->row - 1])
 	{
@@ -116,16 +108,14 @@ int b_side_closed(t_data *data)
 			flag++;
 		if (i == data->col - 1)
 			break ;
+		i++;
 	}
 	if (flag)
-	{
-		ft_putstr_fd("RETURN B SUKA\n", data->fd);
 		return (1);
-	}
 	return (0);
 }
 
-int a_side_closed(t_data *data)
+int down_side_closed(t_data *data)
 {
 	int i;
 	int j;
@@ -134,58 +124,41 @@ int a_side_closed(t_data *data)
 	i = 0;
 	j = 0;
 	flag = 0;
-	while (data->map[i][j])
-	{
-		if (data->map[i][j] == data->my_player)
-			flag++;
-		j++;
-	}
-	j = 0;
 	while (data->map[data->col - 1][j])
 	{
-		if (data->map[i][j] == data->my_player)
+		if (data->map[data->col - 1][j] == data->my_player)
 			flag++;
 		j++;
 	}
 	if (flag)
-	{
-		ft_putstr_fd("RETURN a SUKA\n", data->fd);
 		return (1);
-	}
 	else
 		return (0);
 }
 
-int move_to_diag(t_data *data)
+int move_to_rigtdown(t_data *data)
 {
-	/*ft_putstr_fd("in move to diag\n", data->fd);
-	if ((data->oprightdown && r_sideclosed(data) && d_sideclosed(data))
-		 || (data->opleftup && l_sideclosed(data) && up_sideclosed(data)))
-		select_short_way_tocenr(&(data->lst), data);*/
-//	if (b_side_closed(data) && a_side_closed(data))
-//		select_short_way_tocenr(&(data->lst), data);
-	ft_putstr_fd("MOVE DIAG\n",data->fd);
-	if (data->ver > data->hor)
+	if (right_side_closed(data) && down_side_closed(data))
+		select_short_way_tocenr(&(data->lst), data);
+	else if (data->ver > data->hor)
 	{
-//		if (a_side_closed(data))
-//		{
-//			ft_putstr_fd("A CLOSED I\n",data->fd);
-//			short_way_to_diagB(&(data->lst), data);
-//			return (1);
-//		}
-//		else
+		if (down_side_closed(data))
+		{
+			short_way_to_diagB(&(data->lst), data);
+			return (1);
+		}
+		else
 			short_way_to_diagA(&(data->lst), data);
 		return (1);
 	}
 	else
 	{
-//		if (b_side_closed(data))
-//		{
-//			ft_putstr_fd("B CLOSED\n",data->fd);
-//			short_way_to_diagA(&(data->lst), data);
-//			return (1);
-//		}
-//		else
+		if (right_side_closed(data))
+		{
+			short_way_to_diagA(&(data->lst), data);
+			return (1);
+		}
+		else
 			short_way_to_diagB(&(data->lst), data);
 	}
 	return (1);
@@ -211,17 +184,79 @@ int in_center(t_data *data) //check when i in centr square/
 	return (0);
 }
 
+int left_side_closed(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (data->map[i][j])
+	{
+		if (data->map[i][j] == data->my_player)
+			return (1);
+		if (i == data->col - 1)
+			break ;
+		i++;
+	}
+	return (0);
+}
+
+int up_side_closed(t_data *data)
+{
+	int i;
+	int j;
+	int flag;
+
+	flag = 0;
+	i = 0;
+	j = 0;
+	while (data->map[i][j])
+	{
+		if (data->map[i][j] == data->my_player)
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+int move_to_leftup(t_data *data)
+{
+	if (left_side_closed(data) && up_side_closed(data) )
+		select_short_way_tocenr(&(data->lst), data);
+	else if (data->ver > data->hor)
+	{
+		if (up_side_closed(data))
+		{ ft_putstr_fd("A CLOSED I\n",data->fd);
+			short_way_to_diagB(&(data->lst), data);
+			return (1);
+		}
+		else
+			short_way_to_diagA(&(data->lst), data);
+		return (1);
+	}
+	else
+	{
+		if (left_side_closed(data))
+		{
+			short_way_to_diagA(&(data->lst), data);
+			return (1);
+		}
+		else
+			short_way_to_diagB(&(data->lst), data);
+	}
+	return (1);
+}
+
 void put_my_fig(t_data *data)
 {
-
 	ft_putstr_fd("in put my fig\n", data->fd);
 	if (take_cor_where_to_put(data) == 1)
 	{
 		if (in_center(data)) // if i in center start move to diagonal to cut a biggest part of the map
 		{
-			ft_putstr_fd("CHECK WHERE I\n",data->fd);
 			take_diagonal(data);
-			move_to_diag(data);
+			data->opstartdown ? move_to_rigtdown(data) : move_to_leftup(data);
 			ft_memdel((void **) &(data->lst));
 		}
 		else // go to center

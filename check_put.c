@@ -36,7 +36,6 @@ int check_put(t_data *data, int i, int j)
 	}
 	if (count == 1)
 	{
-		ft_putstr_fd("in count == 1\n", data->fd);
 		write_coor_in_lst(&(data->lst), i, j, data);
 		count = 0;
 	}

@@ -38,7 +38,9 @@ SRC =   filler.c \
 		struct_init.c \
 		short_way_to_diagA.c \
 		short_way_to_diagB.c \
-		reset_all_value.c
+		reset_all_value.c \
+		copy_map.c \
+		copy_figure.c
 
 
 

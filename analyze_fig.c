@@ -1,12 +1,10 @@
 #include "filler.h"
 
-void analyze_fig(t_data *data)
+void	analyze_horizontal(t_data *data)
 {
-	ft_putstr_fd("ANALYZE FIG\n", data->fd);
 	int i;
 	int j;
 	int countj;
-	int counti;
 
 	i = 0;
 	while (data->figmap[i])
@@ -23,14 +21,21 @@ void analyze_fig(t_data *data)
 			data->hor = countj;
 		i++;
 	}
+}
+
+void	analyze_vertical(t_data *data)
+{
+	int i;
+	int j;
+	int counti;
+
 	i = 0;
 	j = 0;
 	while (data->figmap[i][j])
 	{
 
 		counti = 0;
-		while (data->figmap[i])
-		{
+		while (data->figmap[i]) {
 			if (data->figmap[i][j] == '*')
 				counti++;
 			i++;
@@ -42,12 +47,11 @@ void analyze_fig(t_data *data)
 		i = 0;
 		j++;
 	}
-	ft_putchar_fd('\n', data->fd);
-	ft_putstr_fd("vertical ", data->fd);
-	ft_putnbr_fd(data->ver, data->fd);
-	ft_putchar_fd('\n', data->fd);
-	ft_putstr_fd("horizont ", data->fd);
-	ft_putnbr_fd(data->hor, data->fd);
-	ft_putchar_fd('\n', data->fd);
-	ft_putstr_fd("EXIT ANALYZ\n", data->fd);
+}
+
+void analyze_fig(t_data *data)
+{
+	analyze_horizontal(data);
+	analyze_vertical(data);
+	rebuild_myfig(data);
 }

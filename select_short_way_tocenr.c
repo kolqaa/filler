@@ -25,7 +25,7 @@ void select_short_way_tocenr(t_flist **lst, t_data *data) //find way to centr
 	ft_putchar_fd('\n', test->fd);*/
 	while (tmp)
 	{
-		if (ft_sqrt(ft_pow(tmp->x - data->cenx, 2) + ft_pow(tmp->y - data->ceny, 2)) < tmpdst)
+		if (ft_sqrt(ft_pow(tmp->x - data->cenx, 2) + ft_pow(tmp->y - data->ceny , 2)) < tmpdst)
 		{
 			ft_putstr_fd("IN IFFFFFFFFFFF\n", data->fd);
 			tmpdst = ft_sqrt(ft_pow(tmp->x - data->cenx, 2) + ft_pow(tmp->y - data->ceny, 2));

@@ -13,10 +13,9 @@
 
 # define P1 'O'
 # define P2 'X'
-# define BEGINING_OF_THE_GAME 2016
 # define DELTAX (data->col / 6)
 # define DELTAY (data->row / 6)
-# define SHIFTX (data->col / 2)
+# define SHIFTX (data->col / 3)
 # define SHIFTY (data->row / 3)
 
 typedef struct s_flist
@@ -55,8 +54,8 @@ typedef struct s_data
 	int opx;
 	int opy;
 	int exist;
-	int oprightdown;
-	int opleftup;
+	int opstartdown;
+	int opstartup;
 }				t_data;
 
 int		ft_pow(int nb, int power);
@@ -76,6 +75,8 @@ void 	reset_all_value(t_data *data);
 void 	short_way_to_diagA(t_flist **lst, t_data *data);
 void 	short_way_to_diagB(t_flist **lst, t_data *data);
 void 	analyze_fig(t_data *data);
+void	copy_map(char *line, t_data *data);
+void	copy_figure(char *line, t_data *data);
 
 
 #endif
