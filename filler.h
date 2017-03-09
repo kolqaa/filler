@@ -15,7 +15,7 @@
 # define P2 'X'
 # define DELTAX (data->col / 6)
 # define DELTAY (data->row / 6)
-# define SHIFTX (data->col / 3)
+# define SHIFTX (data->col / 4)
 # define SHIFTY (data->row / 3)
 
 typedef struct s_flist
@@ -53,15 +53,12 @@ typedef struct s_data
 	int myy;
 	int opx;
 	int opy;
-	int exist;
 	int opstartdown;
-	int opstartup;
 }				t_data;
 
 int		ft_pow(int nb, int power);
 int 	ft_sqrt(int nb);
-void 	write_coor_in_lst(t_flist **lst, int i, int j, t_data *data);
-void 	select_short_way_tocenr(t_flist **lst, t_data *data);
+void 	write_coor_in_lst(t_flist **lst, int i, int j);
 void 	rebuild_myfig(t_data *data);
 int 	check_put(t_data *data, int i, int j);
 int 	take_cor_where_to_put(t_data *data);
@@ -72,11 +69,15 @@ void	take_figure_size(char *line, t_data *data);
 void 	take_cordin_myplayer(t_data *data);
 void 	struct_init(t_data *data);
 void 	reset_all_value(t_data *data);
-void 	short_way_to_diagA(t_flist **lst, t_data *data);
-void 	short_way_to_diagB(t_flist **lst, t_data *data);
 void 	analyze_fig(t_data *data);
 void	copy_map(char *line, t_data *data);
 void	copy_figure(char *line, t_data *data);
+void 	short_way_to_diagA(t_flist **lst, t_data *data);
+void 	short_way_to_diagB(t_flist **lst, t_data *data);
+void 	select_short_way_tocenr(t_flist **lst, t_data *data);
+void	select_short_way_enemy(t_flist **lst, t_data *data);
+
+
 
 
 #endif

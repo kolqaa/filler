@@ -15,7 +15,6 @@ void reset_all_value(t_data *data)
 	data->ceny = 0;
 	data->ver = 0;
 	data->hor = 0;
-	data->opstartup = 0;
 	data->opstartdown = 0;
 	free(data->figmap);
 	free(data->map);

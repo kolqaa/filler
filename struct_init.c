@@ -27,7 +27,5 @@ void struct_init(t_data *data)
 	data->Bdiagy = 0;
 	data->hor = 0;
 	data->ver = 0;
-	data->exist = 0;
 	data->opstartdown = 0;
-	data->opstartup = 0;
 }

@@ -10,14 +10,12 @@ char get_player(char *str, t_data *data)
 		if (str[i] == 'p' && str[i + 1] == '1')
 		{
 			data->op_player = P2;
-			data->exist = 1;
 			return (P1);
 		}
 
 		if (str[i] == 'p' && str[i + 1] == '2')
 		{
 			data->op_player = P1;
-			data->exist = 1;
 			return (P2);
 		}
 		i++;

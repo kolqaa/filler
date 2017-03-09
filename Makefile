@@ -16,7 +16,6 @@ SRC =   filler.c \
 		libft/ft_strchr.c \
 		libft/ft_atoi.c \
 		libft/ft_putstr_fd.c \
-		analyze_fig.c \
 		libft/ft_strlen.c \
 		libft/ft_strstr.c \
 		libft/ft_putnbr_fd.c \
@@ -26,8 +25,6 @@ SRC =   filler.c \
 		ft_pow.c \
 		ft_sqrt.c \
 		write_coor_in_lst.c \
-		select_short_way_tocenr.c \
-		rebuild_myfig.c \
 		check_put.c \
 		take_cor_where_to_put.c \
 		put_my_fig.c \
@@ -35,11 +32,11 @@ SRC =   filler.c \
 		get_map_size.c \
 		take_figure_size.c \
 		take_cordin_myplayer.c \
-		struct_init.c \
-		short_way_to_diagA.c \
-		short_way_to_diagB.c \
 		reset_all_value.c \
 		copy_map.c \
+		choose_way.c \
+		work_with_fig.c \
+		struct_init.c \
 		copy_figure.c
 
 
@@ -47,7 +44,7 @@ SRC =   filler.c \
 all: comp
 
 comp:
-	gcc $(SRC) libft/libft.a
+	gcc -o filler $(SRC) libft/libft.a -Wall -Wextra -Werror
 
 clean:
 	@rm -f a.out

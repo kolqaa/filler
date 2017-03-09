@@ -36,7 +36,7 @@ int check_put(t_data *data, int i, int j)
 	}
 	if (count == 1)
 	{
-		write_coor_in_lst(&(data->lst), i, j, data);
+		write_coor_in_lst(&(data->lst), i, j);
 		count = 0;
 	}
 	return (0);
