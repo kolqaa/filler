@@ -1,10 +1,18 @@
-//
-// Created by Nick Simonov on 3/4/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct_init.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/10 10:05:46 by nsimonov          #+#    #+#             */
+/*   Updated: 2017/03/10 10:13:44 by nsimonov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
-void struct_init(t_data *data)
+void	struct_init(t_data *data)
 {
 	data->my_player = 0;
 	data->op_player = 0;
@@ -21,11 +29,12 @@ void struct_init(t_data *data)
 	data->first_fig_done = 0;
 	data->m = 0;
 	data->lst = NULL;
-	data->Adiagx = 0;
-	data->Adiagy = 0;
-	data->Bdiagx = 0;
-	data->Bdiagy = 0;
+	data->adiagx = 0;
+	data->adiagy = 0;
+	data->bdiagx = 0;
+	data->bdiagy = 0;
 	data->hor = 0;
 	data->ver = 0;
 	data->opstartdown = 0;
+	data->count = 0;
 }

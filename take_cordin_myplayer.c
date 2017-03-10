@@ -1,11 +1,18 @@
-//
-// Created by Nick Simonov on 3/4/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   take_cordin_myplayer.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/10 10:49:44 by nsimonov          #+#    #+#             */
+/*   Updated: 2017/03/10 10:51:35 by nsimonov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
-
-void take_cordin_myplayer(t_data *data)
+void	take_cordin_myplayer(t_data *data)
 {
 	int i;
 	int j;

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   take_cor_where_to_put.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/10 09:48:46 by nsimonov          #+#    #+#             */
+/*   Updated: 2017/03/10 09:53:23 by nsimonov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
-int take_cor_where_to_put(t_data *data)
+int	take_cor_where_to_put(t_data *data)
 {
 	int i;
 	int j;
@@ -11,7 +23,7 @@ int take_cor_where_to_put(t_data *data)
 		j = 0;
 		while (j <= (data->row - data->frow))
 		{
-			check_put(data, i, j); //possible to put? and choose best coordin
+			check_put(data, i, j, i);
 			j++;
 		}
 		i++;

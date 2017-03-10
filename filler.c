@@ -6,10 +6,9 @@
 /*   By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 16:47:39 by nsimonov          #+#    #+#             */
-/*   Updated: 2017/02/24 16:47:39 by nsimonov         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:20:40 by nsimonov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "filler.h"
 
@@ -21,12 +20,12 @@ void	start(t_data *data)
 	reset_all_value(data);
 }
 
-int main(void)
+int		main(void)
 {
-	char *line;
-	t_data *data;
+	char	*line;
+	t_data	*data;
 
-	data = (t_data *) malloc(sizeof(*data));
+	data = (t_data *)malloc(sizeof(*data));
 	struct_init(data);
 	while (get_next_line(0, &line) > 0)
 	{
@@ -39,8 +38,8 @@ int main(void)
 		if (ft_strstr(line, "Piece"))
 			take_figure_size(line, data);
 		if ((line[0] == '.' || line[0] == '*') && (data->col == data->m))
-			copy_figure(line,data);
-		if(data->f == data->fcol && data->flag_for_fig == 3 && data->col)
+			copy_figure(line, data);
+		if (data->f == data->fcol && data->flag_for_fig == 3 && data->col)
 			start(data);
 	}
 	free(data);

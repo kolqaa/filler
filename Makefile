@@ -22,8 +22,6 @@ SRC =   filler.c \
 		libft/ft_strnew.c \
 		libft/ft_memset.c \
 		libft/ft_strncmp.c \
-		ft_pow.c \
-		ft_sqrt.c \
 		write_coor_in_lst.c \
 		check_put.c \
 		take_cor_where_to_put.c \
@@ -37,7 +35,9 @@ SRC =   filler.c \
 		choose_way.c \
 		work_with_fig.c \
 		struct_init.c \
-		copy_figure.c
+		copy_figure.c \
+		math.c \
+		close_side.c
 
 
 

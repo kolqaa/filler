@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   work_with_fig.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/10 09:51:16 by nsimonov          #+#    #+#             */
+/*   Updated: 2017/03/10 10:00:03 by nsimonov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
 void	analyze_horizontal(t_data *data)
@@ -33,14 +45,14 @@ void	analyze_vertical(t_data *data)
 	j = 0;
 	while (data->figmap[i][j])
 	{
-
 		counti = 0;
-		while (data->figmap[i]) {
+		while (data->figmap[i])
+		{
 			if (data->figmap[i][j] == '*')
 				counti++;
 			i++;
 			if (i == data->fcol)
-				break;
+				break ;
 		}
 		if (counti > data->ver)
 			data->ver = counti;
@@ -49,14 +61,14 @@ void	analyze_vertical(t_data *data)
 	}
 }
 
-void analyze_fig(t_data *data)
+void	analyze_fig(t_data *data)
 {
 	analyze_horizontal(data);
 	analyze_vertical(data);
 	rebuild_myfig(data);
 }
 
-void rebuild_myfig(t_data *data)
+void	rebuild_myfig(t_data *data)
 {
 	int i;
 	int j;
