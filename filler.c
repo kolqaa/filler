@@ -6,58 +6,42 @@
 /*   By: nsimonov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 16:47:39 by nsimonov          #+#    #+#             */
-/*   Updated: 2017/02/24 16:47:39 by nsimonov         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:20:40 by nsimonov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "filler.h"
 
-
-char	get_player(char *str)
+void	start(t_data *data)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == 'p' && str[i + 1] == '1')
-			return (P1);
-		if (str[i] == 'p' && str[i + 1] == '2')
-			return (P2);
-	}
+	analyze_fig(data);
+	take_cordin_myplayer(data);
+	put_my_fig(data);
+	reset_all_value(data);
 }
 
-void	get_map(char *str)
+int		main(void)
 {
-	while (ft_isdigit(str))
-		*str++;
+	char	*line;
+	t_data	*data;
 
-}
-
-void	struct_init(t_map *map, t_player *player)
-{
-	t_player->my_player = 0;
-	t_player->op_player = 0;
-	t_map->col = 0;
-	t_map->row = 0;
-}
-
-int main(void)
-{
-	char *line;
-	t_map *map;
-	t_fig *figmap;
-	t_player *player;
-
-	struct_init(map, player);
+	data = (t_data *)malloc(sizeof(*data));
+	struct_init(data);
 	while (get_next_line(0, &line) > 0)
 	{
-		if (ft_strstr(line, "$$$") && ft_strstr(line, "filler"))
-			player->my_player = get_player(line);
+		if (ft_strstr(line, "$$$"))
+			data->my_player = get_player(line, data);
 		if (ft_strstr(line, "Plateau"))
-			get_map(line);
+			get_map_size(&line, data);
+		if (line[0] == '0')
+			copy_map(line, data);
+		if (ft_strstr(line, "Piece"))
+			take_figure_size(line, data);
+		if ((line[0] == '.' || line[0] == '*') && (data->col == data->m))
+			copy_figure(line, data);
+		if (data->f == data->fcol && data->flag_for_fig == 3 && data->col)
+			start(data);
 	}
-
+	free(data);
+	return (0);
 }
-
